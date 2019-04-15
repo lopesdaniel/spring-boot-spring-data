@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "people")
 public class Person {
@@ -22,18 +24,21 @@ public class Person {
 	
 	@ManyToOne
 	@JoinColumn(name = "event_id")
+	@JsonBackReference
 	private Event eventId;
 	
 	public Person() {
 	}
 
-	public Person(Long id, String name) {
+	public Person(Long id, String name, Event event) {
 		this.id = id;
 		this.name = name;
+		this.eventId = event;
 	}
 
-	public Person(String name) {
+	public Person(String name, Event event) {
 		this.name = name;
+		this.eventId = event;
 	}
 
 	public Long getId() {
