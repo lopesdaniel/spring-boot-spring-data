@@ -3,6 +3,8 @@ package com.danieldev.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +28,10 @@ public class EventController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<Event> findAll(){
-		return (List<Event>) this.eventRepository.findAll();
+	public Page<Event> findAll(Pageable pageable){
+		Page<Event> events = this.eventRepository.findAll(pageable);
+		
+		return events;
 	}
 	
 	@PostMapping
